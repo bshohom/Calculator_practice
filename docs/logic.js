@@ -41,10 +41,10 @@ function checkGuess() {
   
   if (userGuess === correctAnswer) {
     document.getElementById('result-message').textContent = 
-      `Correct! ${currentNumber} squared is indeed ${correctAnswer}.`;
+      `Correct! ${currentNumber} squared is ${correctAnswer}.`;
   } else {
     document.getElementById('result-message').textContent = 
-      `Incorrect. Try again!`;
+      `Nope. Off by ${correctAnswer-userGuess}`;
   }
 }
 
