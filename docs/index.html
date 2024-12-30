@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Number Squaring Practice</title>
+  <title>Number Squaring</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -10,12 +10,19 @@
   <div class="container">
     <h1>Number Squaring Practice</h1>
 
+    <!-- Timer and Scoresheet -->
+    <div id="top-left">
+      <p>Time: <span id="timer">0</span> seconds</p>
+      <button id="download-scoresheet-btn">Download Scoresheet</button>
+    </div>
+
     <!-- Section A: Select how many digits -->
     <label for="digit-selector">Select Digits:</label>
     <select id="digit-selector">
       <option value="2">2-digit</option>
       <option value="3">3-digit</option>
       <option value="4">4-digit</option>
+      <option value="1">1-digit</option>
     </select>
 
     <!-- Display the randomly generated number -->

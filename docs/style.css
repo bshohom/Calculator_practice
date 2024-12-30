@@ -1,38 +1,53 @@
+/* 1) Reset or Basic Body Styles */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    margin: 0;                            /* Removes default browser margin */
+    font-family: Arial, sans-serif;       /* Sets the global font family */
+    background-color: #f2f2f2;            /* Light gray background color */
   }
   
+  /* 2) Container for Centering Content */
   .container {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 1rem;
+    max-width: 600px;                     /* Maximum width of 600px (desktop) */
+    margin: 0 auto;                       /* Centers container horizontally */
+    text-align: center;                   /* Centers text and inline elements */
+    padding: 1rem;                        /* Adds 1rem of spacing on all sides */
   }
   
-  /* Buttons */
+  /* 3) Button Styles */
   .btn {
-    font-size: 1.2rem;
-    padding: 0.75rem 1rem;
-    margin: 0.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    border: none;             /* or border: 1px solid #ccc; for a border */
-    background-color: #007BFF;
-    color: #fff;
+    font-size: 1.2rem;                    /* Larger, more readable text */
+    padding: 0.75rem 1rem;                /* Height & width for better tap area */
+    margin: 0.5rem;                       /* Spacing between buttons */
+    border-radius: 8px;                   /* Rounded corners */
+    cursor: pointer;                      /* Pointer cursor on hover */
+    border: none;                         /* Removes default button border */
+    background-color: #007BFF;            /* A bright blue color */
+    color: #fff;                          /* White text on blue background */
   }
   
+  /* 4) Button Hover State */
   .btn:hover {
-    background-color: #0056b3;
+    background-color: #0056b3;            /* Darker blue on hover */
   }
   
-  /* Responsive: make buttons full-width on smaller screens if desired */
+  /* 5) Responsive Media Query */
   @media (max-width: 600px) {
     .btn {
-      width: 100%;
-      max-width: 300px;
-      font-size: 1.3rem;
+      width: 100%;                        /* Buttons stretch full width on small screens */
+      max-width: 300px;                   /* But won't stretch beyond 300px */
+      font-size: 1.3rem;                  /* Slightly larger text on mobile */
     }
   }
-  
+  #top-left {
+    position: fixed;
+    top: 2vh;                               /* 2% of viewport height */
+    left: 2vw;                              /* 2% of viewport width */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    padding: 1rem;                          /* Padding for content inside */
+    border: 1px solid #ccc;                 /* Light gray border */
+    border-radius: 8px;                     /* Rounded corners */
+    font-family: Arial, sans-serif;         /* Consistent font style */
+    font-size: calc(1rem + 0.2vw);          /* Dynamic font size scaling */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    z-index: 1000;                          /* Ensures it appears above other elements */
+}
