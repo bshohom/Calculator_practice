@@ -3,6 +3,24 @@ let currentNumber = null;
 let startTime = null;
 let timerInterval = null;
 const scores = []; // Array to track scores and times
+const nums = [];
+
+function checkRepeats(newNum) {
+  if (nums.includes(newNum)){
+    console.log(`${newNum} not added due to repeat.`);
+    return true;
+  } else {
+    if (nums.length === 7) {
+      let deleted = nums.shift(); // Remove the oldest element if queue size exceeds 3
+      console.log(`${deleted} removed from record`)
+    }
+    nums.push(newNum)
+    console.log(`${newNum} added.`);
+
+    return false;
+  };
+  
+}
 
 /**
  * Start the timer
@@ -35,9 +53,14 @@ function generateRandomNumber(digits) {
   //      4 digits => between 1000 and 9999
   const min = Math.pow(10, digits - 1);
   const max = Math.pow(10, digits) - 1;
+  let newNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  if (checkRepeats(newNumber)) {
+    newNumber = generateRandomNumber(digits);
+  };
   
+
   // Example: basic random integer generation
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return newNumber;
 }
 
 /**
