@@ -2,20 +2,23 @@
 let currentNumber = null;
 let startTime = null;
 let timerInterval = null;
+let tries = 1;
 const scores = []; // Array to track scores and times
 const nums = [];
+let canGuess = true;
+
 
 function checkRepeats(newNum) {
   if (nums.includes(newNum)){
-    console.log(`${newNum} not added due to repeat.`);
+    //console.log(`${newNum} not added due to repeat.`);
     return true;
   } else {
     if (nums.length === 7) {
       let deleted = nums.shift(); // Remove the oldest element if queue size exceeds 3
-      console.log(`${deleted} removed from record`)
+      //console.log(`${deleted} removed from record`)
     }
     nums.push(newNum)
-    console.log(`${newNum} added.`);
+    //console.log(`${newNum} added.`);
 
     return false;
   };
@@ -55,7 +58,7 @@ function generateRandomNumber(digits) {
   const max = Math.pow(10, digits) - 1;
   let newNumber = Math.floor(Math.random() * (max - min + 1)) + min;
   if (newNumber == Math.floor(newNumber/10) * 10) {
-    console.log(`${newNumber} replaced`);
+    //console.log(`${newNumber} replaced`);
     newNumber = generateRandomNumber(digits);
 
   }
@@ -88,8 +91,6 @@ function setRandomNumber() {
 }
 
 
-
-
 /**
  * 3. Check user guess
  */
@@ -111,10 +112,19 @@ function checkGuess() {
     scores.push({
       number: currentNumber,
       guess: userGuess,
-      correct: correct,
+      attempts: tries,
       time: elapsedTime
     });
+    tries = 1;
+    // Disable the input/Check button
+    document.getElementById('square-guess').disabled = true;
+    document.getElementById('check-btn').disabled = true;
+
+    // Remove the keydown listener so Enter does nothing
+    canGuess = false;
+
   } else {
+    tries = tries + 1;
     resultMessage = `Nope, Try again.`;
   }
 
@@ -126,18 +136,28 @@ function checkGuess() {
  * 4. Reset to start over
  */
 function resetGame() {
+  //reactivate button listeners
+  document.getElementById('square-guess').disabled = false;
+  document.getElementById('check-btn').disabled = false;
+
+  // Re-add the keydown listener
+  canGuess = true;
   setRandomNumber();
 }
 
+function sessionSummary() {
+  return `Nice job; Accuracy: ; Avg Time: `;
+}
 /**
  * Download scoresheet as CSV
  */
 function downloadScoresheet() {
   const csvContent = [
-    'Number,Guess,Correct,Time',
+    'Number,Guess,Attempts Used,Time',
     ...scores.map(score => 
-      `${score.number},${score.guess},${score.correct ? 'Yes' : 'No'},${score.time}`
-    )
+      `${score.number},${score.guess},${score.attempts},${score.time}`
+    ),
+    `${sessionSummary()}`
   ].join('\n');
 
   const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -176,12 +196,14 @@ window.onload = function() {
 
   // Add global keypress event listener
   document.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      // Check the answer when Enter is pressed
-      checkGuess();
-    } else if (event.key.toLowerCase() === 'r') {
-      // Reset the game when R is pressed
+    // If we can't guess, ignore keystrokes
+    if (event.key.toLowerCase() === 'r') {
       resetGame();
+    }
+    if (!canGuess) return;
+    
+    if (event.key === 'Enter') {
+      checkGuess();
     }
   });
 };
