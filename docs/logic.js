@@ -54,6 +54,12 @@ function generateRandomNumber(digits) {
   const min = Math.pow(10, digits - 1);
   const max = Math.pow(10, digits) - 1;
   let newNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  if (newNumber == Math.floor(newNumber/10) * 10) {
+    console.log(`${newNumber} replaced`);
+    newNumber = generateRandomNumber(digits);
+
+  }
+
   if (checkRepeats(newNumber)) {
     newNumber = generateRandomNumber(digits);
   };
