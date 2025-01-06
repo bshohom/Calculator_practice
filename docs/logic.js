@@ -79,6 +79,9 @@ function setRandomNumber() {
   const digitSelector = document.getElementById('digit-selector');
   const selectedDigits = parseInt(digitSelector.value, 10);
   currentNumber = generateRandomNumber(selectedDigits);
+  document.getElementById('square-guess').disabled = false;
+  document.getElementById('check-btn').disabled = false;
+  canGuess = true;
   
   document.getElementById('random-number').textContent = currentNumber;
   document.getElementById('square-guess').value = '';
